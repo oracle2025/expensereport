@@ -4,7 +4,7 @@
 
 #include "ExpenseReport.hpp"
 
-void printReport(list<Expense> expenses, time_t now)
+void ExpenseReport::printReport(list<Expense> expenses, time_t now)
 {
     int total = 0;
     int mealExpenses = 0;
@@ -40,6 +40,6 @@ void printReport(list<Expense> expenses, time_t now)
     cout << "Total expenses: " << total << '\n';
 }
 
-void printReport(list<Expense> expenses) {
+void ExpenseReport::printReport(list<Expense> expenses) {
     printReport(expenses, chrono::system_clock::to_time_t(chrono::system_clock::now()));
 }

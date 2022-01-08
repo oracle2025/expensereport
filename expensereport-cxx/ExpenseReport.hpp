@@ -14,7 +14,9 @@ public:
     Type type;
     int amount;
 };
-
-void printReport(list<Expense> expenses);
-void printReport(list<Expense> expenses, time_t now);
+class ExpenseReport {
+public:
+    void printReport(list<Expense> expenses);
+    void printReport(list<Expense> expenses, time_t now);
+};
 
