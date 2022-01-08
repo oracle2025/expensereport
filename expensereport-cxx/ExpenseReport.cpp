@@ -1,21 +1,8 @@
 #include <chrono>
 #include <iostream>
 #include <iterator>
-#include <list>
 
-using namespace std;
-
-enum Type
-{
-    BREAKFAST, DINNER, CAR_RENTAL
-};
-
-class Expense
-{
-    public:
-    Type type;
-    int amount;
-};
+#include "ExpenseReport.hpp"
 
 void printReport(list<Expense> expenses)
 {
