@@ -1,15 +1,17 @@
 #include <chrono>
 #include <iostream>
 #include <iterator>
+#include <sstream>
 
 #include "ExpenseReport.hpp"
 
 void ExpenseReport::printReport(list<Expense> expenses, time_t now)
 {
+    ostringstream result;
     int total = 0;
     int mealExpenses = 0;
 
-    cout << "Expenses " << ctime(&now) << '\n';
+    result << "Expenses " << ctime(&now) << '\n';
 
     for (list<Expense>::iterator expense = expenses.begin(); expense != expenses.end(); ++expense) {
         if (expense->type == BREAKFAST || expense->type == DINNER) {
@@ -31,13 +33,14 @@ void ExpenseReport::printReport(list<Expense> expenses, time_t now)
 
         string mealOverExpensesMarker = (expense->type == DINNER && expense->amount > 5000) || (expense->type == BREAKFAST && expense->amount > 1000) ? "X" : " ";
 
-        cout << expenseName << '\t' << expense->amount << '\t' << mealOverExpensesMarker << '\n';
+        result << expenseName << '\t' << expense->amount << '\t' << mealOverExpensesMarker << '\n';
 
         total += expense->amount;
     }
 
-    cout << "Meal expenses: " << mealExpenses << '\n';
-    cout << "Total expenses: " << total << '\n';
+    result << "Meal expenses: " << mealExpenses << '\n';
+    result << "Total expenses: " << total << '\n';
+    cout << result.str();
 }
 
 void ExpenseReport::printReport(list<Expense> expenses) {
