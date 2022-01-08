@@ -4,12 +4,11 @@
 
 #include "ExpenseReport.hpp"
 
-void printReport(list<Expense> expenses)
+void printReport(list<Expense> expenses, time_t now)
 {
     int total = 0;
     int mealExpenses = 0;
 
-    auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
     cout << "Expenses " << ctime(&now) << '\n';
 
     for (list<Expense>::iterator expense = expenses.begin(); expense != expenses.end(); ++expense) {
