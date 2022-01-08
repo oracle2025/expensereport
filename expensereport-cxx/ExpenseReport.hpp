@@ -20,5 +20,7 @@ public:
     void printReport(list<Expense> expenses, time_t now);
 
     string generateReport(list<Expense> &expenses, time_t &now) const;
+
+    string header(time_t &now) const;
 };
 

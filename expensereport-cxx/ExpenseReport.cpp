@@ -15,7 +15,7 @@ string ExpenseReport::generateReport(list<Expense> &expenses, time_t &now) const
     int total = 0;
     int mealExpenses = 0;
 
-    result << "Expenses " << ctime(&now) << '\n';
+    result << header(now);
 
     for (list<Expense>::iterator expense = expenses.begin(); expense != expenses.end(); ++expense) {
         if (expense->type == BREAKFAST || expense->type == DINNER) {
@@ -44,6 +44,12 @@ string ExpenseReport::generateReport(list<Expense> &expenses, time_t &now) const
 
     result << "Meal expenses: " << mealExpenses << '\n';
     result << "Total expenses: " << total << '\n';
+    return result.str();
+}
+
+string ExpenseReport::header(time_t &now) const {
+    ostringstream result;
+    result << "Expenses " << ctime(&now) << '\n';
     return result.str();
 }
 
