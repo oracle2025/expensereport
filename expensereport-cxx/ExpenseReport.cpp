@@ -7,6 +7,10 @@
 
 void ExpenseReport::printReport(list<Expense> expenses, time_t now)
 {
+    cout << generateReport(expenses, now);
+}
+
+string ExpenseReport::generateReport(list<Expense> &expenses, time_t &now) const {
     ostringstream result;
     int total = 0;
     int mealExpenses = 0;
@@ -40,7 +44,7 @@ void ExpenseReport::printReport(list<Expense> expenses, time_t now)
 
     result << "Meal expenses: " << mealExpenses << '\n';
     result << "Total expenses: " << total << '\n';
-    cout << result.str();
+    return result.str();
 }
 
 void ExpenseReport::printReport(list<Expense> expenses) {
