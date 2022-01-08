@@ -39,3 +39,7 @@ void printReport(list<Expense> expenses, time_t now)
     cout << "Meal expenses: " << mealExpenses << '\n';
     cout << "Total expenses: " << total << '\n';
 }
+
+void printReport(list<Expense> expenses) {
+    printReport(expenses, chrono::system_clock::to_time_t(chrono::system_clock::now()));
+}
