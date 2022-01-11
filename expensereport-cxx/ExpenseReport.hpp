@@ -28,5 +28,9 @@ struct ExpenseReport {
     void body(const list<Expense> &expenses, ostringstream &result) const;
 
     void detail(const Expense &expense, ostringstream &result) const;
+
+    string getOverLimitMarker(const Expense &expense) const;
+
+    string getName(const Expense &expense) const;
 };
 
