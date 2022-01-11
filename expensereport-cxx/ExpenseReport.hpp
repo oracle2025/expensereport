@@ -14,6 +14,8 @@ public:
     int amount;
 
     static string getName(const Expense &expense) ;
+
+    static string getOverLimitMarker(const Expense &expense) ;
 };
 
 struct ExpenseReport {
@@ -30,8 +32,6 @@ struct ExpenseReport {
     void body(const list<Expense> &expenses, ostringstream &result) const;
 
     void detail(const Expense &expense, ostringstream &result) const;
-
-    string getOverLimitMarker(const Expense &expense) const;
 
 };
 
