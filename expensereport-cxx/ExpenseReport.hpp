@@ -16,6 +16,8 @@ public:
      string getName() const;
 
      string getOverLimitMarker() const;
+
+     bool isMeal() const;
 };
 
 struct ExpenseReport {

@@ -42,7 +42,7 @@ int ExpenseReport::sumTotal(const list<Expense> &expenses) const {
 int ExpenseReport::sumMeals(const list<Expense> &expenses) const {
     int mealExpenses = 0;
     for (auto & expense : expenses) {
-        if (expense.type == BREAKFAST || expense.type == DINNER) {
+        if (expense.isMeal()) {
             mealExpenses += expense.amount;
         }
     }
@@ -73,4 +73,8 @@ string Expense::getOverLimitMarker() const {
     string mealOverExpensesMarker = (type == DINNER && amount > 5000) ||
                                     (type == BREAKFAST && amount > 1000) ? "X" : " ";
     return mealOverExpensesMarker;
+}
+
+bool Expense::isMeal() const{
+    return type == BREAKFAST || type == DINNER;
 }
