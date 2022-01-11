@@ -13,9 +13,9 @@ public:
     Type type;
     int amount;
 
-    static string getName(const Expense &expense) ;
+     string getName() const;
 
-    static string getOverLimitMarker(const Expense &expense) ;
+     string getOverLimitMarker() const;
 };
 
 struct ExpenseReport {
