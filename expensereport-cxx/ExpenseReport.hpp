@@ -1,15 +1,14 @@
 #pragma once
+
 #include <list>
 
 using namespace std;
 
-enum Type
-{
+enum Type {
     BREAKFAST, DINNER, CAR_RENTAL
 };
 
-class Expense
-{
+class Expense {
 public:
     Type type;
     int amount;
