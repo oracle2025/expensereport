@@ -15,5 +15,5 @@ public:
     int amount;
 };
 
-void printReport(list<Expense> expenses, time_t now);
+void printReport(list<Expense> expenses);
 
