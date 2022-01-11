@@ -8,40 +8,63 @@
 void ExpenseReport::printReport(list<Expense> expenses, time_t now) {
     ostringstream result;
 
-    result << "Expenses " << ctime(&now) << '\n';
+    header(now, result);
 
+    body(expenses, result);
+
+    summary(expenses, result);
+    cout << result.str();
+}
+
+void ExpenseReport::body(const list<Expense> &expenses, ostringstream &result) const {
+    for (auto & expense : expenses) {
+        detail(expense, result);
+    }
+}
+
+void ExpenseReport::detail(const Expense &expense, ostringstream &result) const {
+    string expenseName = "";
+    switch (expense.type) {
+        case DINNER:
+            expenseName = "Dinner";
+            break;
+        case BREAKFAST:
+            expenseName = "Breakfast";
+            break;
+        case CAR_RENTAL:
+            expenseName = "Car Rental";
+            break;
+    }
+
+    string mealOverExpensesMarker = (expense.type == DINNER && expense.amount > 5000) ||
+                                    (expense.type == BREAKFAST && expense.amount > 1000) ? "X" : " ";
+
+    result << expenseName << '\t' << expense.amount << '\t' << mealOverExpensesMarker << '\n';
+}
+
+void ExpenseReport::summary(const list<Expense> &expenses, ostringstream &result) const {
+    result << "Meal expenses: " << sumMeals(expenses) << '\n';
+    result << "Total expenses: " << sumTotal(expenses) << '\n';
+}
+
+int ExpenseReport::sumTotal(const list<Expense> &expenses) const {
+    int total = 0;
+    for (auto & expense : expenses) {
+        total += expense.amount;
+    }
+    return total;
+}
+
+int ExpenseReport::sumMeals(const list<Expense> &expenses) const {
     int mealExpenses = 0;
     for (auto & expense : expenses) {
         if (expense.type == BREAKFAST || expense.type == DINNER) {
             mealExpenses += expense.amount;
         }
     }
-    for (auto & expense : expenses) {
+    return mealExpenses;
+}
 
-        string expenseName = "";
-        switch (expense.type) {
-            case DINNER:
-                expenseName = "Dinner";
-                break;
-            case BREAKFAST:
-                expenseName = "Breakfast";
-                break;
-            case CAR_RENTAL:
-                expenseName = "Car Rental";
-                break;
-        }
-
-        string mealOverExpensesMarker = (expense.type == DINNER && expense.amount > 5000) ||
-                                        (expense.type == BREAKFAST && expense.amount > 1000) ? "X" : " ";
-
-        result << expenseName << '\t' << expense.amount << '\t' << mealOverExpensesMarker << '\n';
-    }
-    int total = 0;
-    for (auto & expense : expenses) {
-        total += expense.amount;
-    }
-
-    result << "Meal expenses: " << mealExpenses << '\n';
-    result << "Total expenses: " << total << '\n';
-    cout << result.str();
+void ExpenseReport::header(time_t &now, ostringstream &result) const {
+    result << "Expenses " << ctime(&now) << '\n';
 }
