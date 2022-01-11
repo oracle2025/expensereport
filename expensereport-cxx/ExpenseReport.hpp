@@ -14,5 +14,8 @@ public:
     int amount;
 };
 
-void printReport(list<Expense> expenses);
+struct ExpenseReport {
+    void printReport(list<Expense> expenses, time_t now);
+
+};
 

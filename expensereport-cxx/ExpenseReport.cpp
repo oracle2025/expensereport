@@ -4,20 +4,19 @@
 
 #include "ExpenseReport.hpp"
 
-void printReport(list<Expense> expenses) {
+void ExpenseReport::printReport(list<Expense> expenses, time_t now) {
     int total = 0;
     int mealExpenses = 0;
 
-    auto now = chrono::system_clock::to_time_t(chrono::system_clock::now());
     cout << "Expenses " << ctime(&now) << '\n';
 
-    for (list<Expense>::iterator expense = expenses.begin(); expense != expenses.end(); ++expense) {
-        if (expense->type == BREAKFAST || expense->type == DINNER) {
-            mealExpenses += expense->amount;
+    for (auto & expense : expenses) {
+        if (expense.type == BREAKFAST || expense.type == DINNER) {
+            mealExpenses += expense.amount;
         }
 
         string expenseName = "";
-        switch (expense->type) {
+        switch (expense.type) {
             case DINNER:
                 expenseName = "Dinner";
                 break;
@@ -29,12 +28,12 @@ void printReport(list<Expense> expenses) {
                 break;
         }
 
-        string mealOverExpensesMarker = (expense->type == DINNER && expense->amount > 5000) ||
-                                        (expense->type == BREAKFAST && expense->amount > 1000) ? "X" : " ";
+        string mealOverExpensesMarker = (expense.type == DINNER && expense.amount > 5000) ||
+                                        (expense.type == BREAKFAST && expense.amount > 1000) ? "X" : " ";
 
-        cout << expenseName << '\t' << expense->amount << '\t' << mealOverExpensesMarker << '\n';
+        cout << expenseName << '\t' << expense.amount << '\t' << mealOverExpensesMarker << '\n';
 
-        total += expense->amount;
+        total += expense.amount;
     }
 
     cout << "Meal expenses: " << mealExpenses << '\n';
