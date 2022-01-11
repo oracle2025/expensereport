@@ -23,23 +23,7 @@ void ExpenseReport::body(const list<Expense> &expenses, ostringstream &result) c
 }
 
 void ExpenseReport::detail(const Expense &expense, ostringstream &result) const {
-    result << getName(expense) << '\t' << expense.amount << '\t' << getOverLimitMarker(expense) << '\n';
-}
-
-string ExpenseReport::getName(const Expense &expense) const {
-    string expenseName = "";
-    switch (expense.type) {
-        case DINNER:
-            expenseName = "Dinner";
-            break;
-        case BREAKFAST:
-            expenseName = "Breakfast";
-            break;
-        case CAR_RENTAL:
-            expenseName = "Car Rental";
-            break;
-    }
-    return expenseName;
+    result << Expense::getName(expense) << '\t' << expense.amount << '\t' << getOverLimitMarker(expense) << '\n';
 }
 
 string ExpenseReport::getOverLimitMarker(const Expense &expense) const {
@@ -73,4 +57,20 @@ int ExpenseReport::sumMeals(const list<Expense> &expenses) const {
 
 void ExpenseReport::header(time_t &now, ostringstream &result) const {
     result << "Expenses " << ctime(&now) << '\n';
+}
+
+string Expense::getName(const Expense &expense) {
+    string expenseName = "";
+    switch (expense.type) {
+        case DINNER:
+            expenseName = "Dinner";
+            break;
+        case BREAKFAST:
+            expenseName = "Breakfast";
+            break;
+        case CAR_RENTAL:
+            expenseName = "Car Rental";
+            break;
+    }
+    return expenseName;
 }

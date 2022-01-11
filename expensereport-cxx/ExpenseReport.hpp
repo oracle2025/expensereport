@@ -12,6 +12,8 @@ class Expense {
 public:
     Type type;
     int amount;
+
+    static string getName(const Expense &expense) ;
 };
 
 struct ExpenseReport {
@@ -31,6 +33,5 @@ struct ExpenseReport {
 
     string getOverLimitMarker(const Expense &expense) const;
 
-    string getName(const Expense &expense) const;
 };
 
