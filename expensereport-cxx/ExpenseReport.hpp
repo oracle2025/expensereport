@@ -8,15 +8,18 @@ enum Type {
     BREAKFAST, DINNER, CAR_RENTAL
 };
 struct ExpenseType{
-    Type type;
+    ExpenseType(const string &name, int limit, bool isMeal);
+    ExpenseType() = default;
     string name;
     int limit;
     bool isMeal;
 };
 class Expense {
 public:
+    Expense(Type type, int amount);
     Type type;
     int amount;
+    ExpenseType type2;
 
      string getName() const;
 
