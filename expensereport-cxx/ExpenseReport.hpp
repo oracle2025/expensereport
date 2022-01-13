@@ -4,9 +4,6 @@
 
 using namespace std;
 
-/*enum Type {
-    BREAKFAST, DINNER, CAR_RENTAL
-};*/
 struct ExpenseType {
     ExpenseType(const string &name, int limit, bool isMeal);
 
@@ -26,7 +23,7 @@ public:
     Expense(ExpenseType type, int amount);
 
     int amount;
-    ExpenseType type2;
+    ExpenseType type;
 
     string getName() const;
 
