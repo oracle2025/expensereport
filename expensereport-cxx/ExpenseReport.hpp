@@ -7,7 +7,12 @@ using namespace std;
 enum Type {
     BREAKFAST, DINNER, CAR_RENTAL
 };
-
+struct ExpenseType{
+    Type type;
+    string name;
+    int limit;
+    bool isMeal;
+};
 class Expense {
 public:
     Type type;

@@ -2,16 +2,15 @@
 #include <sstream>
 #include <iostream>
 #include <iterator>
+#include <algorithm>
+#include <numeric>
 
 #include "ExpenseReport.hpp"
 
 void ExpenseReport::printReport(list<Expense> expenses, time_t now) {
     ostringstream result;
-
     header(now, result);
-
     body(expenses, result);
-
     summary(expenses, result);
     cout << result.str();
 }
@@ -32,21 +31,16 @@ void ExpenseReport::summary(const list<Expense> &expenses, ostringstream &result
 }
 
 int ExpenseReport::sumTotal(const list<Expense> &expenses) const {
-    int total = 0;
-    for (auto & expense : expenses) {
-        total += expense.amount;
-    }
-    return total;
+    return accumulate(begin(expenses), end(expenses), 0, [](int total, const Expense &expense) {
+        return total + expense.amount;
+    });
 }
 
 int ExpenseReport::sumMeals(const list<Expense> &expenses) const {
-    int mealExpenses = 0;
-    for (auto & expense : expenses) {
-        if (expense.isMeal()) {
-            mealExpenses += expense.amount;
-        }
-    }
-    return mealExpenses;
+    return accumulate(begin(expenses), end(expenses), 0, [](int total, const Expense &expense) {
+        if (expense.isMeal()) { return total + expense.amount; }
+        return total;
+    });
 }
 
 void ExpenseReport::header(time_t &now, ostringstream &result) const {
