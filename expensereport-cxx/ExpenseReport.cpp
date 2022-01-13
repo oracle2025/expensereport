@@ -48,19 +48,7 @@ void ExpenseReport::header(time_t &now, ostringstream &result) const {
 }
 
 string Expense::getName() const {
-    string expenseName = "";
-    switch (type) {
-        case DINNER:
-            expenseName = "Dinner";
-            break;
-        case BREAKFAST:
-            expenseName = "Breakfast";
-            break;
-        case CAR_RENTAL:
-            expenseName = "Car Rental";
-            break;
-    }
-    return expenseName;
+    return type2.name;
 }
 
 string Expense::getOverLimitMarker() const {
@@ -71,21 +59,20 @@ bool Expense::isOverLimit() const { return amount > type2.limit; }
 
 bool Expense::isMeal() const {
     return type2.isMeal;
-    return type == BREAKFAST || type == DINNER;
 }
 
-Expense::Expense(Type type, int amount) : type(type), amount(amount) {
-    switch (type) {
-        case DINNER:
-            type2 = ExpenseType("Dinner", 5000, true);
-            break;
-        case BREAKFAST:
-            type2 = ExpenseType("Breakfast", 1000, true);
-            break;
-        case CAR_RENTAL:
-            type2 = ExpenseType("Car Rental", numeric_limits<int>::max(), false);
-            break;
-    }
+Expense::Expense(ExpenseType type, int amount) : type2(type), amount(amount) {
+    /* switch (type) {
+         case DINNER:
+             type2 = ExpenseType("Dinner", 5000, true);
+             break;
+         case BREAKFAST:
+             type2 = ExpenseType("Breakfast", 1000, true);
+             break;
+         case CAR_RENTAL:
+             type2 = ExpenseType("Car Rental", numeric_limits<int>::max(), false);
+             break;
+     }*/
 }
 
 ExpenseType::ExpenseType(const string &name, int limit, bool isMeal) :

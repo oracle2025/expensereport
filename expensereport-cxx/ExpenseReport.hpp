@@ -4,28 +4,35 @@
 
 using namespace std;
 
-enum Type {
+/*enum Type {
     BREAKFAST, DINNER, CAR_RENTAL
-};
-struct ExpenseType{
+};*/
+struct ExpenseType {
     ExpenseType(const string &name, int limit, bool isMeal);
+
     ExpenseType() = default;
+
     string name;
     int limit;
     bool isMeal;
 };
+
+const ExpenseType DINNER = ExpenseType("Dinner", 5000, true);
+const ExpenseType BREAKFAST = ExpenseType("Breakfast", 1000, true);
+const ExpenseType CAR_RENTAL = ExpenseType("Car Rental", numeric_limits<int>::max(), false);
+
 class Expense {
 public:
-    Expense(Type type, int amount);
-    Type type;
+    Expense(ExpenseType type, int amount);
+
     int amount;
     ExpenseType type2;
 
-     string getName() const;
+    string getName() const;
 
-     string getOverLimitMarker() const;
+    string getOverLimitMarker() const;
 
-     bool isMeal() const;
+    bool isMeal() const;
 
     bool isOverLimit() const;
 };
