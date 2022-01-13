@@ -64,10 +64,10 @@ string Expense::getName() const {
 }
 
 string Expense::getOverLimitMarker() const {
-    string mealOverExpensesMarker = (type == DINNER && amount > 5000) ||
-                                    (type == BREAKFAST && amount > 1000) ? "X" : " ";
-    return mealOverExpensesMarker;
+    return isOverLimit() ? "X" : " ";
 }
+
+bool Expense::isOverLimit() const { return amount > type2.limit; }
 
 bool Expense::isMeal() const {
     return type2.isMeal;
