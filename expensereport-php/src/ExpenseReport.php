@@ -4,34 +4,59 @@ namespace ExpenseReport;
 
 class ExpenseReport
 {
+
     function print_report($expenses, $timestamp)
     {
-        $mealExpenses = 0;
-        $total = 0;
+        $this->header($timestamp);
+        $this->body($expenses);
+        $this->summary($expenses);
+    }
+
+    public function header($timestamp): void
+    {
         $date = date("Y-m-d h:i:sa", $timestamp);
         print("Expense Report {$date}\n");
-        foreach ($expenses as $expense) {
-            if ($expense->type == ExpenseType::DINNER || $expense->type == ExpenseType::BREAKFAST) {
-                $mealExpenses += $expense->amount;
-            }
-            $expenseName = "";
-            switch ($expense->type) {
-                case ExpenseType::DINNER:
-                    $expenseName = "Dinner";
-                    break;
-                case ExpenseType::BREAKFAST:
-                    $expenseName = "Breakfast";
-                    break;
-                case ExpenseType::CAR_RENTAL:
-                    $expenseName = "Car Rental";
-                    break;
-            }
+    }
 
-            $mealOverExpensesMarker = $expense->type == ExpenseType::DINNER && $expense->amount > 5000 || $expense->type == ExpenseType::BREAKFAST && $expense->amount > 1000 ? "X" : " ";
-            print($expenseName . "\t" . $expense->amount . "\t" . $mealOverExpensesMarker . "\n");
+    public function body($expenses)
+    {
+        foreach ($expenses as $expense) {
+            $this->detail($expense);
+        }
+        return $expense;
+    }
+
+    public function summary($expenses): void
+    {
+        print("Meal Expenses: " . $this->sumMeals($expenses) . "\n");
+        print("Total Expenses: " . $this->sumTotal($expenses) . "\n");
+    }
+
+    public function detail($expense): void
+    {
+        print($expense->getExpenseName() . "\t" . $expense->amount . "\t" . $this->getOverExpensesMarker($expense) . "\n");
+    }
+
+    public function sumTotal($expenses)
+    {
+        $total = 0;
+        foreach ($expenses as $expense) {
             $total += $expense->amount;
         }
-        print("Meal Expenses: " . $mealExpenses . "\n");
-        print("Total Expenses: " . $total . "\n");
+        return $total;
     }
+
+    public function sumMeals($expenses)
+    {
+        return $this->sumTotal(array_filter($expenses, function ($expense) {
+            return $expense->isMeal();
+        }));
+    }
+
+    public function getOverExpensesMarker($expense): string
+    {
+        $mealOverExpensesMarker = $expense->isOverLimit() ? "X" : " ";
+        return $mealOverExpensesMarker;
+    }
+
 }

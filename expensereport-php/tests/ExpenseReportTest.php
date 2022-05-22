@@ -12,20 +12,19 @@ class ExpenseReportTest extends TestCase
     {
         $timestamp = strtotime('2015-05-12 20:00:00');
         $expenses = array(
-            new Expense(ExpenseType::BREAKFAST, 1),
-            new Expense(ExpenseType::BREAKFAST, 1000),
-            new Expense(ExpenseType::BREAKFAST, 1001),
-            new Expense(ExpenseType::DINNER, 2),
-            new Expense(ExpenseType::DINNER, 5000),
-            new Expense(ExpenseType::DINNER, 5001),
-            new Expense(ExpenseType::CAR_RENTAL, 4),
+            new Expense(ExpenseType::BREAKFAST(), 1),
+            new Expense(ExpenseType::BREAKFAST(), 1000),
+            new Expense(ExpenseType::BREAKFAST(), 1001),
+            new Expense(ExpenseType::DINNER(), 2),
+            new Expense(ExpenseType::DINNER(), 5000),
+            new Expense(ExpenseType::DINNER(), 5001),
+            new Expense(ExpenseType::CAR_RENTAL(), 4),
         );
         $expenseReport = new ExpenseReport();
         ob_start();
         $expenseReport->print_report($expenses, $timestamp);
         $actual = ob_get_contents();
         ob_end_clean();
-        echo $actual;
         $expected = <<<OUTPUT
 Expense Report 2015-05-12 08:00:00pm
 Breakfast	1	 
