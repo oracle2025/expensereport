@@ -23,7 +23,6 @@ class ExpenseReport
         foreach ($expenses as $expense) {
             $this->detail($expense);
         }
-        return $expense;
     }
 
     public function summary($expenses): void
