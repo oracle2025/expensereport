@@ -1,3 +1,7 @@
+project(ExpenseReport)
+cmake_minimum_required(VERSION 3.11)
 set(CMAKE_CXX_STANDARD 17)
-add_executable(ExpenseReport ExpenseReport.cpp main.cpp)
+add_executable(ExpenseReport src/ExpenseReport.cpp test/ExpenseReportTest.cpp)
 target_include_directories(ExpenseReport PUBLIC .)
+add_test(ExpenseReport ExpenseReport)
+enable_testing()

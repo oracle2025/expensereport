@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
-#include <doctest/doctest.h>
-#include "ExpenseReport.hpp"
+#include "doctest/doctest.h"
+#include "include/ExpenseReport.hpp"
 
 TEST_CASE ("ExpenseReport Characterization Test") {
     std::tm tm = {};

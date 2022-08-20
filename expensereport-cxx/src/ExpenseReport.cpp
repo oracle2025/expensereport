@@ -2,7 +2,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "ExpenseReport.hpp"
+#include "include/ExpenseReport.hpp"
 
 void ExpenseReport::printReport(list<Expense> expenses, time_t now) {
     int total = 0;
@@ -14,6 +14,8 @@ void ExpenseReport::printReport(list<Expense> expenses, time_t now) {
         if (expense.type == BREAKFAST || expense.type == DINNER) {
             mealExpenses += expense.amount;
         }
+    }
+    for (auto & expense : expenses) {
 
         string expenseName = "";
         switch (expense.type) {
