@@ -1,1 +1,3 @@
 *.[adios]
+cmake-build-*/
+build/
